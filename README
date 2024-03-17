@@ -1,0 +1,34 @@
+libperfstat - a tiny library to `perf record` only specific code parts
+----------------------------------------------------------------------
+
+# about
+
+inspired by https://stackoverflow.com/questions/70314376/enable-disable-perf-event-collection-programmatically
+i set out the implement the mentioned steps, only to find that the output
+provided by `perf stat` wasn't quite what i wanted.
+fortunately it turned out that `perf record` achieved the same IPC functionality
+somewhere between kernel 5.4 and 5.10.
+
+this library allows you to start `perf record` in the background, and
+then enable and disable it programmatically, so you can performance-test
+only specific code snippets and only in specific situations.
+
+see `test.c` for how it works and how to use.
+
+note that there's also a libperf - which let's you use the perf performance
+counters manually without perf binary, a way more powerful tool.
+however if a `perf report`-like output is what you're after, you'd probably
+need to spend a week to study the perf code to figure out how to produce a
+similar result.
+
+# requirements
+- gnu make
+- a C compiler
+- an installed `perf` binary that supports --control command line option.
+  one compiled from kernel sources >= 5.10 should work.
+- this also means you need linux, since it's the platform perf was
+  written for.
+
+# compilation/installation
+make CFLAGS="-O1 -g"
+make PREFIX=/usr install

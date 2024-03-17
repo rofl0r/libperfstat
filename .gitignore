@@ -1,0 +1,6 @@
+test
+*.o
+*.a
+*.so
+perf.data
+perf.data.old
